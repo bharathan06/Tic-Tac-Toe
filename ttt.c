@@ -89,28 +89,38 @@ int main(){
         printf("------------------------------------------------------------------\n");
 
         printf("Player %d: Enter the row and column to place your move (1,2,3): \n",temp);
-        scanf("%d %d",&inrow,&incol);                                    //Take input of row and column from the user. 
-        
-        
-        row = inrow - 1;                                       //To add user friendlyness to the program. 
-        col = incol - 1;
-
-        if(row>=0 && row<size && col>=0 && col<size && board[row][col]==0){
-            board[row][col]=currentplayer;                          //Move made by currentplayer is recorded at respective position
-        }
+        while(1){
+            if(scanf("%d %d",&inrow,&incol)!=2){
+                while(getchar()!='\n'){
+                    printf("Invalid input. Please enter row and col as single integers, not characters or strings!\n");
+                }
+            }
 
         
-        if(checkwin(board, size, currentplayer)){
-            printf("\nPlayer %d has won the game!!!\n",temp);   //Checks if we have a winner. 
-            printWinnerTrophy();
-            break;
-        }
-        if(checkdraw(board, size)){
-            printf("\nIt is a draw! *Failure noises* \n");             //Checks if it is a draw. 
-            break;
-        }
+            else {
+            row = inrow - 1;                                       //To add user friendlyness to the program. 
+            col = incol - 1;
 
-        currentplayer= -currentplayer;                               //When both checkwin and checkdraw fail, the game continues to the next player. 
+            if(row>=0 && row<size && col>=0 && col<size && board[row][col]==0){
+                board[row][col]=currentplayer;                          //Move made by currentplayer is recorded at respective position
+                break;
+            }
+            else
+                printf("Please enter a valid cell location (1,2,3) and do not choose already occupied positions!\n");
+            }
+        }
+        
+            if(checkwin(board, size, currentplayer)){
+                printf("\nPlayer %d has won the game!!!\n",temp);   //Checks if we have a winner. 
+                printWinnerTrophy();
+                break;
+            }
+            if(checkdraw(board, size)){
+                printf("\nIt is a draw! *Failure noises* \n");             //Checks if it is a draw. 
+                break;
+            }
+
+            currentplayer= -currentplayer;                               //When both checkwin and checkdraw fail, the game continues to the next player. 
     }
 
     for(int i=0; i<size; ++i){
@@ -118,8 +128,3 @@ int main(){
     }
     free(board);
 }
-
-
-
-
-
