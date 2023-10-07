@@ -109,9 +109,27 @@ int main(){
                 printf("Please enter a valid cell location (1,2,3) and do not choose already occupied positions!\n");
             }
         }
-        
+            
             if(checkwin(board, size, currentplayer)){
                 printf("\nPlayer %d has won the game!!!\n",temp);   //Checks if we have a winner. 
+                printf("\nWinner board!:\n");
+                for(int i=0; i<size; ++i){
+                    for(int j=0; j<size; ++j){
+                        if(board[i][j]==0)
+                            printf("- ");
+                        else if (board[i][j] == currentplayer){
+                            if(currentplayer == 1)
+                                printf("\x1b[9mX\x1b[0m ");  
+                            else
+                                printf("\x1b[9mO\x1b[0m ");  
+                        }
+                            
+                        else 
+                            printf("O ");
+                    }
+                    printf("\n");
+                }
+
                 printWinnerTrophy();
                 break;
             }
